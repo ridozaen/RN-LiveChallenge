@@ -30,7 +30,7 @@ class GameScreen extends Component {
         }
         let newBoard = [...board]
         this.props.actionBoardPress(newBoard, player)
-        if(this.state.countClick === 5){
+        if(this.state.countClick === 8){
             this.gameOver()
         }
     }

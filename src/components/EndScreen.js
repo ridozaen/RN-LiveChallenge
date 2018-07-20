@@ -14,10 +14,14 @@ class EndScreen extends Component {
         this.props.actionReset()
         this.props.navigation.navigate('Home')
     }
+    componentDidMount(){
+        // this.props.board
+    }
     render() {
         return (
             <View>
                 <Text>Game Selesai Siapa Pemenangnya?</Text>
+                <Text>{this.props.board}</Text>
                 <Button title='End Game' onPress={this.restartGame} />
             </View>
         );
