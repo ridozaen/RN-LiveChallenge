@@ -13,7 +13,7 @@ class HomeScreen extends Component {
     render() {
         return (
             <View>
-                <Button title='Start Game' onPress={this.startGame} />
+                <Button title='Start Game' onPress={this.startGame}/>
             </View>
         );
     }

@@ -20,8 +20,8 @@ class EndScreen extends Component {
     render() {
         return (
             <View>
-                <Text>Game Selesai Siapa Pemenangnya?</Text>
-                <Text>{this.props.board}</Text>
+                <Text>Congratulation!!!</Text>
+                <Text>The Winner is : Player {this.props.winner}</Text>
                 <Button title='End Game' onPress={this.restartGame} />
             </View>
         );
@@ -31,7 +31,8 @@ class EndScreen extends Component {
 const mapStateToProps = (state) => {
     return {
         board: state.board,
-        player: state.player
+        player: state.player,
+        winner: state.winner
     }
 }
 
