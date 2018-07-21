@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Text, View, Button} from 'react-native'
+import React, { Component } from 'react'
+import { Text, View, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionReset, actionBoardPress } from '../store/actions'
@@ -7,21 +7,21 @@ import { actionReset, actionBoardPress } from '../store/actions'
 class EndScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {  };
+        this.state = {};
         this.restartGame = this.restartGame.bind(this)
     }
-    restartGame(){
+    restartGame() {
         this.props.actionReset()
         this.props.navigation.navigate('Home')
     }
-    componentDidMount(){
+    componentDidMount() {
         // this.props.board
     }
     render() {
         return (
-            <View>
+            <View style={{justifyContent:'center', alignContent:'center', alignItems:'center'}}>
                 <Text>Congratulation!!!</Text>
-                <Text>The Winner is : Player {this.props.winner}</Text>
+                <Text>{(this.props.winner !== 0) ? "The Winner is: " + this.props.winner : "The Game is Draw!!"}</Text>
                 <Button title='End Game' onPress={this.restartGame} />
             </View>
         );
@@ -42,4 +42,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators(
         actionBoardPress
     }, dispatch)
 
-export default connect(mapStateToProps,mapDispatchToProps)(EndScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(EndScreen);

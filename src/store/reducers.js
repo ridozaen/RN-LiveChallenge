@@ -2,6 +2,7 @@ const initiateState ={
     board: [[0,0,0],[0,0,0],[0,0,0]],
     winner: '',
     player: 1,
+    count: 0,
     isLoading: false
 }
 
@@ -11,7 +12,8 @@ const ticReducers = (state = initiateState, action) => {
             return {
                 ...state,
                 board: [...action.payload.board],
-                player: action.payload.player
+                player: action.payload.player,
+                count: state.count + 1
             }
         case 'SET_WINNER':
             return {
@@ -23,7 +25,8 @@ const ticReducers = (state = initiateState, action) => {
                 ...state,
                 board: [[0,0,0],[0,0,0],[0,0,0]],
                 winner: '',
-                player: 1
+                player: 1,
+                count: 0
             }
         default:
             return state

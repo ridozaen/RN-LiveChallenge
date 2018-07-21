@@ -3,6 +3,7 @@ import { Text, View, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionReset, actionBoardPress, actionSetWinner } from '../store/actions'
+import Promise from 'bluebird'
 
 
 class GameScreen extends Component {
@@ -12,8 +13,9 @@ class GameScreen extends Component {
             countClick: 0
         };
         this.handlePress = this.handlePress.bind(this)
+        this.setStateAsync = Promise.promisify(this.setState) //async await the count state
     }
-    handlePress(x, y) {
+    async handlePress(x, y) {
         const board = this.props.board
         let player = this.props.player
         let newPlayer = ''
@@ -31,8 +33,14 @@ class GameScreen extends Component {
         }
         let newBoard = [...board]
         this.props.actionBoardPress(newBoard, newPlayer)
-        if (this.checkWinner(x, y, player)) {
+        await this.setStateAsync({count: this.state.countClick + 1})
+        if (this.checkWinner(x, y, player) && this.state.countClick < 9) {
             this.props.actionSetWinner(player)
+            this.gameOver()
+        }
+
+        if (this.state.countClick === 9){
+            this.props.actionSetWinner(0)
             this.gameOver()
         }
     }
@@ -135,7 +143,7 @@ class GameScreen extends Component {
                 </View>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', marginBottom: 70 }}>
                     <TouchableHighlight onPress={() => this.handlePress(2, 0)}>
-                        <View style={{ width: 70, height: 70, backgroundColor: '#c5cae9', justifyContent: 'center', borderWidth: 1}}>
+                        <View style={{ width: 70, height: 70, backgroundColor: '#c5cae9', justifyContent: 'center', borderWidth: 1 }}>
                             {this.props.board[2][0] === 1 && <Text style={{ textAlign: 'center', fontSize: 30 }}> O </Text>}
                             {this.props.board[2][0] === 2 && <Text style={{ textAlign: 'center', fontSize: 30 }}> X </Text>}
                         </View>
@@ -161,7 +169,8 @@ class GameScreen extends Component {
 const mapStateToProps = (state) => {
     return {
         board: state.board,
-        player: state.player
+        player: state.player,
+        count: state.count
     }
 }
 

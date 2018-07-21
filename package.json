@@ -7,7 +7,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "native-base": "^2.7.2",
+    "native-promisify": "^1.2.0",
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-navigation": "^2.8.0",
